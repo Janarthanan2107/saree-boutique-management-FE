@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+  <title>Megam Drapes symbol</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8D5A3"/>
+      <stop offset="40%" stop-color="#C4A35A"/>
+      <stop offset="100%" stop-color="#8B7344"/>
+    </linearGradient>
+    <linearGradient id="m" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5C1F2E"/>
+      <stop offset="100%" stop-color="#2B0F14"/>
+    </linearGradient>
+  </defs>
+  <!-- Fluid drape silhouette: weight shifts like folded silk -->
+  <path fill="url(#m)" d="M50 4C24 4 6 26 6 52c0 18 10 32 26 38 6 2 12 3 18 3 28 0 44-16 44-41C94 26 76 4 50 4Z"/>
+  <path fill="url(#g)" fill-opacity="0.95" d="M50 14c-18 0-32 14-32 34 0 12 6 22 16 27 20-8 32-28 32-50 0-6-1-11-4-11h-12Z"/>
+  <path stroke="url(#g)" stroke-width="2.2" stroke-linecap="round" fill="none" d="M18 48c12-10 32-12 50-4M22 62c10-6 26-7 40-2"/>
+  <path stroke="#FAF6F0" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round" fill="none" d="M38 28c8 6 14 16 16 28"/>
+</svg>

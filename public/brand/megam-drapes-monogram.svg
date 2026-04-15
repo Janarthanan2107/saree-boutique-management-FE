@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+  <title>Megam Drapes MD monogram</title>
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8D5A3"/>
+      <stop offset="45%" stop-color="#C4A35A"/>
+      <stop offset="100%" stop-color="#9A7B3A"/>
+    </linearGradient>
+    <linearGradient id="wine" x1="0%" y1="100%" x2="80%" y2="0%">
+      <stop offset="0%" stop-color="#5C1F2E"/>
+      <stop offset="100%" stop-color="#2B0F14"/>
+    </linearGradient>
+  </defs>
+  <!-- Interlocked M + D: M in deep maroon, D bowl in gold with maroon counter -->
+  <path fill="url(#wine)" d="M10 62V14h9l11 26 11-26h9v48h-8V32L40 62h-5L18 32v30h-8z"/>
+  <path fill="url(#gold)" d="M52 14h18c12 0 20 9 20 22s-8 22-20 22H52V14zm9 9v26h9c6.6 0 11-5 11-13S76.6 23 70 23h-9z"/>
+  <path fill="url(#wine)" d="M61 23h7c5 0 8 4 8 10s-3 10-8 10h-7V23z"/>
+  <path stroke="url(#gold)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.9" d="M14 58c10-8 24-10 38-6"/>
+</svg>

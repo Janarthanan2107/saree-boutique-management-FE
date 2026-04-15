@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@source "./**/*.{js,jsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-surface: var(--surface);
+  --color-surface-container: var(--surface-container);
+  --color-surface-highest: var(--surface-highest);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --font-display: var(--font-family-display);
+  --font-body: var(--font-family-body);
+  --animate-silk-in: silk-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-silk-up: silk-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --animate-silk-fade: silk-fade 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  --duration-400: 400ms;
+
+  @keyframes silk-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes silk-up {
+    from {
+      opacity: 0;
+      transform: translateY(48px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes silk-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  --radius: 0.25rem;
+  --primary: oklch(0.2 0.08 15);
+  --primary-foreground: oklch(0.97 0.01 90);
+  --primary-container: oklch(0.28 0.1 15);
+  --on-primary: oklch(0.97 0.01 90);
+  --secondary: oklch(0.55 0.12 85);
+  --secondary-foreground: oklch(0.2 0.08 15);
+  --gold: oklch(0.55 0.12 85);
+  --gold-bright: oklch(0.75 0.14 85);
+  --background: oklch(0.97 0.015 95);
+  --foreground: oklch(0.2 0.08 15);
+  --surface: oklch(0.97 0.015 95);
+  --surface-container: oklch(0.94 0.015 95);
+  --surface-highest: oklch(0.91 0.015 95);
+  --card: oklch(0.94 0.015 95);
+  --card-foreground: oklch(0.2 0.08 15);
+  --popover: oklch(0.97 0.015 95);
+  --popover-foreground: oklch(0.2 0.08 15);
+  --muted: oklch(0.94 0.015 95);
+  --muted-foreground: oklch(0.45 0.04 15);
+  --accent: oklch(0.75 0.14 85);
+  --accent-foreground: oklch(0.2 0.08 15);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.97 0.01 90);
+  --border: oklch(0.88 0.015 95 / 60%);
+  --input: oklch(0.88 0.015 95);
+  --ring: oklch(0.55 0.12 85);
+  --font-family-display: "Noto Serif", Georgia, serif;
+  --font-family-body: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-family-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-display);
+  }
+}
+
+.label-luxury {
+  font-family: var(--font-family-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--color-gold);
+}
+
+.gold-link {
+  color: var(--color-gold);
+  text-decoration: none;
+  position: relative;
+  font-family: var(--font-family-body);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.gold-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold-bright);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.gold-link:hover::after {
+  width: 100%;
+}
+
+.glass-nav {
+  background: oklch(0.97 0.015 95 / 80%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.shadow-ambient {
+  box-shadow: 0 8px 32px oklch(0.2 0.08 15 / 6%);
+}
