@@ -62,7 +62,9 @@ export default function HeroSection() {
             >
               Explore Collection
             </Link>
-            <span className="gold-link cursor-pointer">Our Story</span>
+            <Link to="/heritage" className="gold-link">
+              Our Story
+            </Link>
           </motion.div>
         </div>
 

@@ -6,9 +6,9 @@ import BrandLogo from "@/components/BrandLogo";
 
 const navLinks = [
   { label: "Collections", href: "/collections" },
-  { label: "Heritage", href: "/" },
-  { label: "Atelier", href: "/" },
-  { label: "Journal", href: "/" },
+  { label: "Heritage", href: "/heritage" },
+  { label: "Atelier", href: "/atelier" },
+  { label: "Journal", href: "/journal" },
 ];
 
 export default function Navigation() {

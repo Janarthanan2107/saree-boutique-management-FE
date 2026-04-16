@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import sareeTexture from "@/assets/saree-texture-1.jpg";
 
@@ -48,7 +49,9 @@ export default function EditorialSection() {
             craftsmanship.
           </p>
           <div className="mt-10">
-            <span className="gold-link cursor-pointer">Discover Our Heritage</span>
+            <Link to="/heritage" className="gold-link">
+              Discover Our Heritage
+            </Link>
           </div>
         </motion.div>
       </div>
