@@ -27,10 +27,9 @@ function SidebarLinks({ onNavigate }) {
           end={item.end}
           onClick={onNavigate}
           className={({ isActive }) =>
-            `flex items-center gap-3 rounded-md px-3 py-2.5 font-body text-sm transition-colors ${
-              isActive
-                ? "bg-primary text-on-primary"
-                : "text-muted-foreground hover:bg-surface-highest hover:text-foreground"
+            `flex items-center gap-3 rounded-md px-3 py-2.5 font-body text-sm transition-colors ${isActive
+              ? "bg-primary text-on-primary"
+              : "text-muted-foreground hover:bg-surface-highest hover:text-foreground"
             }`
           }
         >
@@ -41,8 +40,28 @@ function SidebarLinks({ onNavigate }) {
   );
 }
 
-export default function AdminLayout() {
+function SidebarFooter({ onAfterSignOut }) {
   const { logout, session } = useAdminAuth();
+  return (
+    <div className="shrink-0 border-t border-border/40 px-4 py-4">
+      <p className="font-body text-xs text-muted-foreground">Signed in as</p>
+      <p className="mt-0.5 font-display text-sm text-foreground">{session?.email ?? "Admin"}</p>
+      <button
+        type="button"
+        onClick={() => {
+          logout();
+          toast.success("Signed out");
+          onAfterSignOut?.();
+        }}
+        className="mt-3 w-full rounded-md px-2 py-1.5 text-left font-body text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:bg-surface-highest hover:text-primary"
+      >
+        Sign out
+      </button>
+    </div>
+  );
+}
+
+export default function AdminLayout() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -53,20 +72,7 @@ export default function AdminLayout() {
           <BrandLogo variant="text" theme="light" className="w-full max-w-full" />
         </div>
         <SidebarLinks />
-        <div className="shrink-0 border-t border-border/40 px-4 py-4">
-          <p className="font-body text-xs text-muted-foreground">Signed in as</p>
-          <p className="mt-0.5 font-display text-sm text-foreground">{session?.email ?? "Admin"}</p>
-          <button
-            type="button"
-            onClick={() => {
-              logout();
-              toast.success("Signed out");
-            }}
-            className="mt-3 w-full rounded-md px-2 py-1.5 text-left font-body text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:bg-surface-highest hover:text-primary"
-          >
-            Sign out
-          </button>
-        </div>
+        <SidebarFooter />
       </aside>
 
       <AnimatePresence>
@@ -88,11 +94,11 @@ export default function AdminLayout() {
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
               className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-border/40 bg-surface-container shadow-xl lg:hidden"
             >
-              <div className="shrink-0 border-b border-border/40 px-6 py-6">
-                <p className="font-display text-2xl text-primary">Megam</p>
-                <p className="label-luxury mt-1">Drapes Atelier</p>
+              <div className="shrink-0 border-b border-border/40 border-gold px-5 py-4">
+                <BrandLogo variant="text" theme="light" className="w-full max-w-full" />
               </div>
               <SidebarLinks onNavigate={() => setMobileOpen(false)} />
+              <SidebarFooter onAfterSignOut={() => setMobileOpen(false)} />
             </motion.aside>
           </>
         ) : null}
