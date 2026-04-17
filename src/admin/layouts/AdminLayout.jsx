@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminAuth } from "@/admin/context/AdminAuthContext";
 import { toast } from "sonner";
+import BrandLogo from "@/components/BrandLogo";
 
 const nav = [
   { to: "/admin", label: "Overview", end: true },
@@ -18,7 +19,7 @@ const nav = [
 
 function SidebarLinks({ onNavigate }) {
   return (
-    <nav className="flex-1 space-y-1 px-3 py-6">
+    <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-6">
       {nav.map((item) => (
         <NavLink
           key={item.to}
@@ -47,13 +48,12 @@ export default function AdminLayout() {
 
   return (
     <div className="flex min-h-screen bg-surface text-foreground">
-      <aside className="hidden w-64 shrink-0 border-r border-border/40 bg-surface-container lg:block">
-        <div className="border-b border-border/40 px-6 py-6">
-          <p className="font-display text-2xl text-primary">Megam</p>
-          <p className="label-luxury mt-1">Drapes Atelier</p>
+      <aside className="sticky top-0 hidden h-[100dvh] max-h-[100dvh] w-64 shrink-0 flex-col self-start overflow-hidden border-r border-border/40 bg-surface-container lg:flex">
+        <div className="shrink-0 border-b border-border/40 border-gold px-5 py-4">
+          <BrandLogo variant="text" theme="light" className="w-full max-w-full" />
         </div>
         <SidebarLinks />
-        <div className="border-t border-border/40 px-4 py-4">
+        <div className="shrink-0 border-t border-border/40 px-4 py-4">
           <p className="font-body text-xs text-muted-foreground">Signed in as</p>
           <p className="mt-0.5 font-display text-sm text-foreground">{session?.email ?? "Admin"}</p>
           <button
@@ -86,9 +86,9 @@ export default function AdminLayout() {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-              className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border/40 bg-surface-container shadow-xl lg:hidden"
+              className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-border/40 bg-surface-container shadow-xl lg:hidden"
             >
-              <div className="border-b border-border/40 px-6 py-6">
+              <div className="shrink-0 border-b border-border/40 px-6 py-6">
                 <p className="font-display text-2xl text-primary">Megam</p>
                 <p className="label-luxury mt-1">Drapes Atelier</p>
               </div>

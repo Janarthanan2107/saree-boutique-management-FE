@@ -42,9 +42,6 @@ export default function AdminLoginPage() {
           </Link>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-gold">Atelier console</p>
           <h1 className="mt-8 font-display text-3xl text-foreground">Sign in</h1>
-          <p className="mt-2 font-body text-sm text-muted-foreground">
-            Admin access. Set <code className="text-xs">VITE_ADMIN_PASSWORD</code> in production.
-          </p>
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
             <div>
               <label htmlFor="adm-email" className="font-body text-xs uppercase tracking-[0.12em] text-muted-foreground">
