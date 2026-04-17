@@ -169,3 +169,90 @@
 .shadow-ambient {
   box-shadow: 0 8px 32px oklch(0.2 0.08 15 / 6%);
 }
+
+/* Sonner — match Megam Drapes tokens (avoid default UI / richColors look) */
+[data-sonner-toaster] {
+  font-family: var(--font-family-body);
+  --width: min(22rem, calc(100vw - 2rem));
+  --border-radius: var(--radius-lg);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] {
+  --normal-bg: var(--card);
+  --normal-border: color-mix(in oklch, var(--foreground) 12%, var(--card));
+  --normal-text: var(--foreground);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] {
+  background: var(--card);
+  border: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+  color: var(--foreground);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px oklch(0.2 0.08 15 / 8%);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-description] {
+  color: var(--muted-foreground);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-icon] {
+  color: var(--gold);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="error"] [data-icon],
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="error"] [data-icon] svg {
+  color: var(--destructive);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="success"] {
+  border-left: 3px solid var(--gold);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="error"] {
+  border-left: 3px solid var(--destructive);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="warning"] {
+  border-left: 3px solid var(--gold-bright);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"][data-type="info"] {
+  border-left: 3px solid color-mix(in oklch, var(--gold) 65%, var(--foreground));
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-close-button] {
+  color: var(--foreground);
+  background: var(--surface-container);
+  border-color: color-mix(in oklch, var(--foreground) 12%, transparent);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"]
+  [data-sonner-toast][data-styled="true"]:hover
+  [data-close-button]:hover {
+  background: var(--surface-highest);
+  border-color: color-mix(in oklch, var(--foreground) 18%, transparent);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-button] {
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-button]:hover {
+  filter: brightness(1.04);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-cancel] {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--foreground) 7%, transparent);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast][data-styled="true"] [data-cancel]:hover {
+  background: color-mix(in oklch, var(--foreground) 11%, transparent);
+}
+
+[data-sonner-toaster][data-sonner-theme="light"] [data-sonner-toast]:focus-visible {
+  box-shadow:
+    0 8px 32px oklch(0.2 0.08 15 / 8%),
+    0 0 0 2px color-mix(in oklch, var(--ring) 45%, transparent);
+}

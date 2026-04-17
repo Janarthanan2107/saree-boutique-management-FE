@@ -1,5 +1,7 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { getJournalArticlesForPublic } from "@/admin/data/adminApi";
+import { useAdminSync } from "@/admin/hooks/useAdminSync";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import fashionEditorial from "@/assets/journal-fashion-editorial.jpg";
@@ -9,7 +11,7 @@ import sareeTexture2 from "@/assets/saree-texture-2.jpg";
 import sareeTexture3 from "@/assets/saree-texture-3.jpg";
 import sareePink from "@/assets/saree-pink-kanjeevaram.jpg";
 
-const articles = [
+const staticArticles = [
   {
     id: "art-of-draping",
     category: "Style",
@@ -74,6 +76,12 @@ const articles = [
 ];
 
 export default function JournalPage() {
+  const adminVersion = useAdminSync();
+  const articles = useMemo(() => {
+    const fromAdmin = getJournalArticlesForPublic();
+    return fromAdmin.length > 0 ? fromAdmin : staticArticles;
+  }, [adminVersion]);
+
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);

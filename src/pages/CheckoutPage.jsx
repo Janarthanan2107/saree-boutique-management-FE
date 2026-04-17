@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { addOrder } from "@/admin/data/adminApi";
 import { useStore } from "@/context/StoreContext";
 import Footer from "@/components/Footer";
 import BrandLogo from "@/components/BrandLogo";
@@ -49,7 +50,7 @@ function FloatingInput({ label, name, type = "text", value, onChange, required =
 }
 
 export default function CheckoutPage() {
-  const { cart, cartTotal, cartCount } = useStore();
+  const { cart, cartTotal, cartCount, clearCart } = useStore();
 
   const [form, setForm] = useState({
     firstName: "",
@@ -63,11 +64,30 @@ export default function CheckoutPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [confirm, setConfirm] = useState(null);
 
   const update = (field) => (value) => setForm((prev) => ({ ...prev, [field]: value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const shipping = cartTotal >= 25000 ? 0 : 500;
+    const total = cartTotal + shipping;
+    addOrder({
+      id: `ord-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      customer: { ...form },
+      items: cart.map((i) => ({
+        productId: i.product.id,
+        title: i.product.title,
+        qty: i.quantity,
+        unitPrice: i.product.priceNum,
+      })),
+      total,
+      paymentStatus: "Paid",
+      status: "Pending",
+    });
+    setConfirm({ count: cartCount, email: form.email });
+    clearCart();
     setSubmitted(true);
   };
 
@@ -105,8 +125,8 @@ export default function CheckoutPage() {
             <div className="label-luxury mb-4">Order Confirmed</div>
             <h1 className="font-display text-3xl text-foreground md:text-4xl">Thank You</h1>
             <p className="mt-4 max-w-md font-body text-sm leading-relaxed text-muted-foreground">
-              Your order for {cartCount} {cartCount === 1 ? "piece" : "pieces"} has been placed. We will send a
-              confirmation to {form.email}.
+              Your order for {confirm?.count ?? 0} {(confirm?.count ?? 0) === 1 ? "piece" : "pieces"} has been placed.
+              We will send a confirmation to {confirm?.email}.
             </p>
             <Link to="/collections" className="gold-link mt-10">
               Continue Shopping

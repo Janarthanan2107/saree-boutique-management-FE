@@ -81,6 +81,10 @@ export function StoreProvider({ children }) {
     );
   }, []);
 
+  const clearCart = useCallback(() => {
+    setCart([]);
+  }, []);
+
   const toggleWishlist = useCallback((product) => {
     setWishlist((prev) => {
       const exists = prev.some((p) => p.id === product.id);
@@ -117,6 +121,7 @@ export function StoreProvider({ children }) {
       addToCart,
       removeFromCart,
       updateQuantity,
+      clearCart,
       toggleWishlist,
       isInWishlist,
       isInCart,
@@ -133,6 +138,7 @@ export function StoreProvider({ children }) {
       addToCart,
       removeFromCart,
       updateQuantity,
+      clearCart,
       toggleWishlist,
       isInWishlist,
       isInCart,

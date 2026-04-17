@@ -1,6 +1,9 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-saree.jpg";
+import { getSettings } from "@/admin/data/adminApi";
+import { resolveAsset } from "@/admin/data/assetKeys";
+import { useAdminSync } from "@/admin/hooks/useAdminSync";
 
 const silk = {
   hidden: { opacity: 0, y: 48 },
@@ -12,6 +15,10 @@ const silk = {
 };
 
 export default function HeroSection() {
+  const v = useAdminSync();
+  const s = useMemo(() => getSettings(), [v]);
+  const heroImage = resolveAsset(s.heroImageKey);
+
   return (
     <section className="relative min-h-screen overflow-hidden bg-surface px-6 pt-28 md:px-16 lg:px-[120px] lg:pt-0">
       <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col items-start justify-center gap-12 lg:flex-row lg:items-center lg:gap-0">
@@ -23,7 +30,7 @@ export default function HeroSection() {
             variants={silk}
             className="label-luxury mb-6"
           >
-            The Royal Silk Heritage
+            {s.heroEyebrow}
           </motion.p>
 
           <motion.h1
@@ -33,9 +40,9 @@ export default function HeroSection() {
             variants={silk}
             className="font-display text-4xl leading-[1.1] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-[3.5rem]"
           >
-            Where Silk
+            {s.heroTitleLine1}
             <br />
-            Becomes Legacy
+            {s.heroTitleLine2}
           </motion.h1>
 
           <motion.p

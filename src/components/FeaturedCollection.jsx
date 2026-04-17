@@ -1,32 +1,10 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import saree1 from "@/assets/saree-texture-1.jpg";
-import saree2 from "@/assets/saree-texture-2.jpg";
-import saree3 from "@/assets/saree-texture-3.jpg";
+import { getCatalogProductById, getSettings } from "@/admin/data/adminApi";
+import { useAdminSync } from "@/admin/hooks/useAdminSync";
 
-const collections = [
-  {
-    id: "banarasi-crimson",
-    image: saree1,
-    title: "Banarasi Crimson",
-    category: "BRIDAL COLLECTION",
-    price: "₹45,000",
-  },
-  {
-    id: "royal-kanjeevaram",
-    image: saree2,
-    title: "Royal Kanjeevaram",
-    category: "HERITAGE WEAVES",
-    price: "₹62,000",
-  },
-  {
-    id: "emerald-pattu",
-    image: saree3,
-    title: "Emerald Pattu",
-    category: "FESTIVE EDIT",
-    price: "₹38,000",
-  },
-];
+const DEFAULT_IDS = ["banarasi-crimson", "royal-kanjeevaram", "emerald-pattu"];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -38,6 +16,13 @@ const fadeUp = {
 };
 
 export default function FeaturedCollection() {
+  const v = useAdminSync();
+  const collections = useMemo(() => {
+    const s = getSettings();
+    const ids = (s.featuredProductIds || []).length ? s.featuredProductIds : DEFAULT_IDS;
+    return ids.map((id) => getCatalogProductById(id)).filter(Boolean).slice(0, 6);
+  }, [v]);
+
   return (
     <section className="bg-surface-container px-6 py-24 md:px-16 md:py-32 lg:px-[120px] lg:py-40">
       <div className="mx-auto max-w-[1440px]">
@@ -56,7 +41,7 @@ export default function FeaturedCollection() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {collections.map((item, i) => (
             <motion.article
-              key={item.title}
+              key={item.id}
               custom={i}
               initial="hidden"
               whileInView="visible"

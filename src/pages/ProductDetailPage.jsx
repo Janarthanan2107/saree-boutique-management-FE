@@ -1,27 +1,35 @@
+import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FabricZoom from "@/components/FabricZoom";
-import { getProductById, getSimilarProducts } from "@/data/products";
+import { getProductById, getSimilarProducts } from "@/data/catalog";
 import { useStore } from "@/context/StoreContext";
+import { useAdminSync } from "@/admin/hooks/useAdminSync";
 
-function ProductActions({ productId }) {
+function ProductActions({ product }) {
   const { addToCart, toggleWishlist, isInWishlist, isInCart } = useStore();
-  const product = getProductById(productId);
   if (!product) return null;
-  const wishlisted = isInWishlist(productId);
-  const inCart = isInCart(productId);
+  const wishlisted = isInWishlist(product.id);
+  const inCart = isInCart(product.id);
+  const out = (product.stock ?? 0) <= 0;
 
   return (
     <div className="mt-10 flex flex-wrap items-center gap-5">
-      <button
-        type="button"
-        onClick={() => addToCart(product)}
-        className="bg-primary-container px-10 py-3.5 text-sm tracking-[0.05em] uppercase text-on-primary transition-opacity duration-400 hover:opacity-90"
-      >
-        {inCart ? "Added to Cart ✓" : "Add to Cart"}
-      </button>
+      {out ? (
+        <p className="max-w-sm font-body text-sm text-muted-foreground">
+          Currently unavailable — explore similar weaves or reach out via Contact.
+        </p>
+      ) : (
+        <button
+          type="button"
+          onClick={() => addToCart(product)}
+          className="bg-primary-container px-10 py-3.5 text-sm tracking-[0.05em] uppercase text-on-primary transition-opacity duration-400 hover:opacity-90"
+        >
+          {inCart ? "Added to Cart ✓" : "Add to Cart"}
+        </button>
+      )}
       <button type="button" onClick={() => toggleWishlist(product)} className="gold-link cursor-pointer">
         {wishlisted ? "♥ In Wishlist" : "Add to Wishlist"}
       </button>
@@ -31,7 +39,8 @@ function ProductActions({ productId }) {
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
-  const product = getProductById(productId ?? "");
+  const adminVersion = useAdminSync();
+  const product = useMemo(() => getProductById(productId ?? ""), [productId, adminVersion]);
 
   if (!product) {
     return (
@@ -51,7 +60,10 @@ export default function ProductDetailPage() {
     );
   }
 
-  const similar = getSimilarProducts(product);
+  const similar = useMemo(
+    () => (product ? getSimilarProducts(product) : []),
+    [product?.id, adminVersion],
+  );
 
   return (
     <main>
@@ -111,7 +123,7 @@ export default function ProductDetailPage() {
               ))}
             </div>
 
-            <ProductActions productId={product.id} />
+            <ProductActions product={product} />
           </motion.div>
         </div>
       </section>

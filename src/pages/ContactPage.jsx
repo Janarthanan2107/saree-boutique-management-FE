@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { addContact } from "@/admin/data/adminApi";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -72,7 +73,8 @@ export default function ContactPage() {
     }
     setErrors({});
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 900));
+    addContact({ name, email, message });
+    await new Promise((r) => setTimeout(r, 600));
     setSubmitting(false);
     setSent(true);
     setForm({ name: "", email: "", message: "" });
